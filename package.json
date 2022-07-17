@@ -1,0 +1,9 @@
+{
+  "name": "lunarjs-discord",
+  "version": "0.0.0",
+  "description": "A discord selfbot api wrapper heavily based off of Discum and Discord.js",
+  "main": "src/index.js",
+  "repository": "https://github.com/TheDevYellowy/lunar.js.git",
+  "author": "TheDevYellowy <yellowycorn6963@gmail.com>",
+  "license": "MIT"
+}
