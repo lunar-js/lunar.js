@@ -1,7 +1,7 @@
 <div align="center">
     <br />
     <p>
-        <a href="lunarjs.com" target="_blank"><img src="./lunar.png" width='546' height="25%"></a>
+        <a href="https://www.lunarjs.com" target="_blank"><img src="./lunar.png" width='546' height="25%"></a>
     </p>
     <p>
         <a href="https://www.npmjs.com/package/lunarjs-discord"><img src="https://img.shields.io/npm/v/lunarjs-discord.svg?maxAge=3600" alt="npm version" /></a>
