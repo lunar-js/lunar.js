@@ -2,8 +2,26 @@
   "name": "lunarjs-discord",
   "version": "0.0.0",
   "description": "A discord selfbot api wrapper heavily based off of Discum and Discord.js",
-  "main": "src/index.js",
+  "scripts": {
+    "test": "yarn docs:test && yarn test:typescript",
+    "test:typescript": "tsc --noemit && tsd",
+    "lint": "prettier --check . && eslint src && tslint typings/index.d.ts",
+    "format": "prettier --write . && eslint src --fix",
+    "docs": "docgen -i './src/*.js' './src/**/*.js' "
+  },
+  "main": "./src/index.js",
+  "types": "./typings/index.d.ts",
   "repository": "https://github.com/TheDevYellowy/lunar.js.git",
   "author": "TheDevYellowy <yellowycorn6963@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.9.0"
+  },
+  "devDependencies": {
+    "@discordjs/docgen": "^0.11.1",
+    "dtslint": "^4.2.1",
+    "eslint": "^8.20.0",
+    "prettier": "^2.7.1",
+    "tslint": "^6.1.3"
+  }
 }
