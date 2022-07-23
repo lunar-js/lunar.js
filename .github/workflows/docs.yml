@@ -113,7 +113,7 @@ jobs:
       - name: Extract package and semver from tag
         if: ${{ github.event.inputs.ref || env.BRANCH_OR_TAG == 'tag' }}
         id: extract-tag
-        uses: https://github.com/discordjs/discord.js/tree/main/packages/actions/src/formatTag
+        uses: ./actions/src/formatTag
         with:
           tag: ${{ env.BRANCH_NAME }}
 
