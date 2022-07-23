@@ -30,14 +30,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'yarn'
-          cache-dependency-path: yarn.lock
 
       - name: Install dependencies
-        run: yarn --immutable
+        run: npm i
 
       - name: Build docs
-        run: yarn docs
+        run: npm run docs
 
       - name: Set outputs for upload job
         id: env
@@ -65,11 +63,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'yarn'
-          cache-dependency-path: yarn.lock
 
       - name: Install dependencies
-        run: yarn --immutable
+        run: npm i
 
       - name: Download docgen artifacts
         uses: actions/download-artifact@v3
