@@ -67,18 +67,6 @@ jobs:
       - name: Install dependencies
         run: npm i
 
-      - name: Download docgen artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: docgen
-          path: docs
-
-      - name: Download api-extractor artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: api-extractor
-          path: docs
-
       - name: Extract package and semver from tag
         if: ${{ github.event.inputs.ref || env.BRANCH_OR_TAG == 'tag' }}
         id: extract-tag
