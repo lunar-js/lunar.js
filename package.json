@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "description": "A discord selfbot api wrapper heavily based off of Discum and Discord.js",
   "scripts": {
-    "test": "yarn docs:test && yarn test:typescript",
+    "test": "yarn docs:test",
     "test:typescript": "tsc --noemit && tsd",
     "lint": "prettier --check . && eslint src && tslint typings/index.d.ts",
     "format": "prettier --write . && eslint src --fix",
-    "docs": "docgen -i './src/*.js' './src/**/*.js' "
+    "docs": "docgen -s src -c docs/index.json -o docs/main.json",
+    "docs:test": "docgen -s src -c docs/index.json"
   },
   "main": "./src/index.js",
   "types": "./typings/index.d.ts",
