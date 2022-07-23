@@ -16,7 +16,6 @@ jobs:
   build:
     name: Build documentation
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'discordjs'
     outputs:
       BRANCH_NAME: ${{ steps.env.outputs.BRANCH_NAME }}
       BRANCH_OR_TAG: ${{ steps.env.outputs.BRANCH_OR_TAG }}
@@ -37,23 +36,8 @@ jobs:
       - name: Install dependencies
         run: yarn --immutable
 
-      - name: Build dependencies
-        run: yarn build
-
       - name: Build docs
         run: yarn docs
-
-      - name: Upload docgen artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: docgen
-          path: packages/*/docs/docs.json
-
-      - name: Upload api-extractor artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: api-extractor
-          path: packages/*/docs/docs.api.json
 
       - name: Set outputs for upload job
         id: env
@@ -61,14 +45,13 @@ jobs:
           echo "::set-output name=BRANCH_NAME::${GITHUB_REF_NAME}"
           echo "::set-output name=BRANCH_OR_TAG::${GITHUB_REF_TYPE}"
           echo "::set-output name=SHA::${GITHUB_SHA}"
+
   upload:
     name: Upload Documentation
     needs: build
     strategy:
       max-parallel: 1
       fail-fast: false
-      matrix:
-        package: ['builders', 'collection', 'discord.js', 'proxy', 'rest', 'voice']
     runs-on: ubuntu-latest
     env:
       BRANCH_NAME: ${{ github.event.inputs.ref || needs.build.outputs.BRANCH_NAME }}
@@ -88,9 +71,6 @@ jobs:
       - name: Install dependencies
         run: yarn --immutable
 
-      - name: Build actions
-        run: yarn build
-
       - name: Download docgen artifacts
         uses: actions/download-artifact@v3
         with:
@@ -102,13 +82,6 @@ jobs:
         with:
           name: api-extractor
           path: docs
-
-      - name: Checkout docs repository
-        uses: actions/checkout@v3
-        with:
-          repository: 'discordjs/docs'
-          token: ${{ secrets.DJS_DOCS }}
-          path: 'out'
 
       - name: Extract package and semver from tag
         if: ${{ github.event.inputs.ref || env.BRANCH_OR_TAG == 'tag' }}
