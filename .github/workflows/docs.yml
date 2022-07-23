@@ -66,35 +66,15 @@ jobs:
 
       - name: Install dependencies
         run: npm i
-
-      - name: Extract package and semver from tag
-        if: ${{ github.event.inputs.ref || env.BRANCH_OR_TAG == 'tag' }}
-        id: extract-tag
-        uses: ./actions/src/formatTag
-        with:
-          tag: ${{ env.BRANCH_NAME }}
-
-      - name: Move docs to correct directory
-        if: ${{ (github.event.inputs.ref || env.BRANCH_OR_TAG == 'tag') && matrix.package == steps.extract-tag.outputs.package }}
-        env:
-          PACKAGE: ${{ steps.extract-tag.outputs.package }}
-          SEMVER: ${{ steps.extract-tag.outputs.semver }}
-        run: |
-          mkdir -p out/${PACKAGE}
-          mv docs/${PACKAGE}/docs/docs.json out/${PACKAGE}/${SEMVER}.json
-          if [[ $PACKAGE != "discord.js" ]]; then
-            mv docs/${PACKAGE}/docs/docs.api.json out/${PACKAGE}/${SEMVER}.api.json
-          fi
+        
       - name: Move docs to correct directory
         if: ${{ !github.event.inputs.ref && env.BRANCH_OR_TAG == 'branch' }}
         env:
           PACKAGE: ${{ matrix.package }}
         run: |
           mkdir -p out/${PACKAGE}
-          mv docs/${PACKAGE}/docs/docs.json out/${PACKAGE}/${BRANCH_NAME}.json
-          if [[ $PACKAGE != "discord.js" ]]; then
-            mv docs/${PACKAGE}/docs/docs.api.json out/${PACKAGE}/${BRANCH_NAME}.api.json
-          fi
+          mv docs/main.json out/docs.json
+          
       - name: Commit and push
         run: |
           cd out
