@@ -6,7 +6,7 @@
     <p>
         <a href="https://www.npmjs.com/package/lunarjs-discord"><img src="https://img.shields.io/npm/v/lunarjs-discord.svg?maxAge=3600" alt="npm version" /></a>
         <a href="https://www.npmjs.com/package/lunarjs-discord"><img src="https://img.shields.io/npm/dt/lunarjs-discord.svg?maxAge=3600" alt="npm downloads" /></a>
-        <a href="https://github.com/TheDevYellowy/lunar.js/actions"><img src="https://github.com/lunar-js/lunar.js/actions/workflows/lint.yml/badge.svg" alt="Tests status" /></a>
+        <a href="https://github.com/lunar-js/lunar.js/actions"><img src="https://github.com/lunar-js/lunar.js/actions/workflows/lint.yml/badge.svg" alt="Tests status" /></a>
     </p>
 </div>
 
