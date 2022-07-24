@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
-const https = require("node:https");
-const { setTimeout } = require("node:timers");
-const FormData = require("form-data");
-const fetch = require("node-fetch");
-const { randomUA } = require("../util/Constants");
+const https = require('node:https');
+const { setTimeout } = require('node:timers');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
+const { randomUA } = require('../util/Constants');
 
 let agent = null;
 
@@ -17,18 +17,13 @@ class APIRequest {
     this.options = options;
     this.retries = 0;
 
-    const { userAgentSuffix } = this.client.options;
-    this.fullUserAgent = `${randomUA()}${
-      userAgentSuffix.length ? `, ${userAgentSuffix.join(", ")}` : ""
-    }`;
+    this.fullUserAgent = `${randomUA()}`;
 
-    let queryString = "";
+    let queryString = '';
     if (options.query) {
       const query = Object.entries(options.query)
-        .filter(([, value]) => value !== null && typeof value !== "undefined")
-        .flatMap(([key, value]) =>
-          Array.isArray(value) ? value.map((v) => [key, v]) : [[key, value]]
-        );
+        .filter(([, value]) => value !== null && typeof value !== 'undefined')
+        .flatMap(([key, value]) => (Array.isArray(value) ? value.map(v => [key, v]) : [[key, value]]));
       queryString = new URLSearchParams(query).toString();
     }
     this.path = `${path}${queryString && `?${queryString}`}`;
@@ -48,48 +43,40 @@ class APIRequest {
 
     let headers = {
       ...this.client.options.http.headers,
-      "User-Agent": this.fullUserAgent,
+      'User-Agent': this.fullUserAgent,
     };
 
-    this.client.options.http.headers["User-Agent"] = this.fullUserAgent;
+    this.client.options.http.headers['User-Agent'] = this.fullUserAgent;
 
-    if (this.options.auth !== false)
-      headers.Authorization = this.rest.getAuth();
-    if (this.options.reason)
-      headers["X-Audit-Log-Reason"] = encodeURIComponent(this.options.reason);
-    if (this.options.headers)
-      headers = Object.assign(headers, this.options.headers);
+    if (this.options.auth !== false) headers.Authorization = this.rest.getAuth();
+    if (this.options.reason) headers['X-Audit-Log-Reason'] = encodeURIComponent(this.options.reason);
+    if (this.options.headers) headers = Object.assign(headers, this.options.headers);
 
     let body;
     if (this.options.files?.length) {
       body = new FormData();
       for (const [index, file] of this.options.files.entries()) {
-        if (file?.file)
-          body.append(file.key ?? `files[${index}]`, file.file, file.name);
+        if (file?.file) body.append(file.key ?? `files[${index}]`, file.file, file.name);
       }
-      if (typeof this.options.data !== "undefined") {
+      if (typeof this.options.data !== 'undefined') {
         if (this.options.dontUsePayloadJSON) {
-          for (const [key, value] of Object.entries(this.options.data))
-            body.append(key, value);
+          for (const [key, value] of Object.entries(this.options.data)) body.append(key, value);
         } else {
-          body.append("payload_json", JSON.stringify(this.options.body));
+          body.append('payload_json', JSON.stringify(this.options.body));
         }
       }
       headers = Object.assign(headers, body.getHeaders());
     } else if (this.options.data != null) {
       body = this.options.data ? JSON.stringify(this.options.data) : undefined;
-      headers["Content-Type"] = "application/json";
+      headers['Content-Type'] = 'application/json';
     } else if (this.options.body != null) {
       body = new FormData();
-      body.append("payload_json", JSON.stringify(this.options.body));
+      body.append('payload_json', JSON.stringify(this.options.body));
       headers = Object.assign(headers, body.getHeaders());
     }
 
     const controller = new AbortController();
-    const timeout = setTimeout(
-      () => controller.abort(),
-      this.client.options.restRequestTimeout
-    ).unref();
+    const timeout = setTimeout(() => controller.abort(), this.client.options.restRequestTimeout).unref();
     return fetch(url, {
       method: this.method,
       headers,
