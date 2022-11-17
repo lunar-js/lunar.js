@@ -94,22 +94,20 @@ class BitField {
   /**
    * Gets an object mapping field names to a {@link boolean} indicating whether the
    * bit is available.
-   * @param {...*} hasParams Additional parameters for the has method, if any
    * @returns {Object}
    */
-  serialize(...hasParams) {
+  serialize() {
     const serialized = {};
-    for (const [flag, bit] of Object.entries(this.constructor.FLAGS)) serialized[flag] = this.has(bit, ...hasParams);
+    for (const [flag, bit] of Object.entries(this.constructor.FLAGS)) serialized[flag] = this.has(bit);
     return serialized;
   }
 
   /**
    * Gets an {@link Array} of bitfield names based on the bits available.
-   * @param {...*} hasParams Additional parameters for the has method, if any
    * @returns {string[]}
    */
-  toArray(...hasParams) {
-    return Object.keys(this.constructor.FLAGS).filter(bit => this.has(bit, ...hasParams));
+  toArray() {
+    return Object.keys(this.constructor.FLAGS).filter(bit => this.has(bit));
   }
 
   toJSON() {

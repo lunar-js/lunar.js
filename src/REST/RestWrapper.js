@@ -1,8 +1,8 @@
 'use strict';
 
 const { setTimeout } = require('node:timers');
+const axios = require('axios');
 const FormData = require('form-data');
-const fetch = require('node-fetch');
 
 class RestWrapper {
   constructor(client) {
@@ -15,7 +15,7 @@ class RestWrapper {
 
   /**
    * Make a request to the discord api
-   * @param {"GET" | "POST" | "DELETE"} method the method to use
+   * @param {"GET" | "POST" | "PATCH" | "PUT" | "DELETE"} method the method to use
    * @param {string} path the api path
    * @param {boolean} auth weather or not the request needs a token
    * @param {boolean} versioned weather or not the request needs the versioned api
@@ -65,12 +65,10 @@ class RestWrapper {
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.client.options.restRequestTimeout).unref();
-    return fetch(url, {
-      method,
-      headers,
-      body,
-      signal: controller.signal,
-    }).finally(() => clearTimeout(timeout));
+    // eslint-disable-next-line prettier/prettier
+    const res = await axios[method.toLowerCase()](url, { headers, data: body, signal: controller.signal }).finally(() => clearTimeout(timeout));
+
+    return res.data;
   }
 }
 

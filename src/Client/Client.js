@@ -1,11 +1,23 @@
+/* eslint-disable import/order */
 'use strict';
 
-const EventEmitter = require('node:events');
-const Gateway = require('../Gateway/Gateway');
+// Managers
 const RestWrapper = require('../REST/RestWrapper');
+const Gateway = require('../Gateway/Gateway');
+
+// Misc
+const EventEmitter = require('node:events');
 const Options = require('../util/Options');
 
+/**
+ * The main class for interacting with the discord api.
+ * @extends {EventEmitter}
+ */
 class Client extends EventEmitter {
+  /**
+   * @param {string} token The client token
+   * @param {boolean} phone Weather or not you want the status to be online via phone
+   */
   constructor(token, phone = false) {
     super();
 
@@ -17,7 +29,7 @@ class Client extends EventEmitter {
      */
     this.token = token;
 
-    this.rest = new RestWrapper(this);
+    this.api = new RestWrapper(this);
     this.ws = new Gateway(this, phone);
   }
 }

@@ -70,6 +70,7 @@ class Options extends null {
         api: 'https://discord.com/api',
         cdn: 'https://cdn.discordapp.com',
       },
+      restRequestTimeout: 15_000,
     };
   }
 }
