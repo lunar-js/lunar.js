@@ -21,7 +21,9 @@ A discord selfbot api wrapper heavily based on Discum and Discord.js nothing is 
 
 ## ToDo
 
-- [x] Message: Embeds (WebEmbed)
+- [x] Connect to the gateway
+- [ ] Recieve and send messages
+- [ ] Everything
 
 <br />
 
