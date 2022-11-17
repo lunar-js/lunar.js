@@ -19,6 +19,12 @@ A discord selfbot api wrapper heavily based on Discum and Discord.js nothing is 
 
 <br />
 
+## ToDo
+
+- [x] Message: Embeds (WebEmbed)
+
+<br />
+
 ## Installation
 
 **Node.js >= 16.9.0 is required**
