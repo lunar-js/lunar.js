@@ -66,7 +66,9 @@ class RestWrapper {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.client.options.restRequestTimeout).unref();
     // eslint-disable-next-line prettier/prettier
-    const res = await axios[method.toLowerCase()](url, { headers, data: body, signal: controller.signal }).finally(() => clearTimeout(timeout));
+    const res = await axios[method.toLowerCase()](url, { headers, data: body, signal: controller.signal }).finally(() =>
+      clearTimeout(timeout),
+    );
 
     return res.data;
   }

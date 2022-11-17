@@ -1,4 +1,4 @@
-name: docs
+name: format
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ on:
       - '*'
 
 jobs:
-  docs:
+  format:
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,4 +22,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm i
-      - run: npm run docs
+      - run: npm run format
