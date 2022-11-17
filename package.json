@@ -1,6 +1,6 @@
 {
   "name": "lunarjs-discord",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A discord selfbot api wrapper heavily based off of Discum and Discord.js",
   "scripts": {
     "test": "yarn docs:test",
