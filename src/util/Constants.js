@@ -1,5 +1,7 @@
 'use strict';
 
+exports.address = 'wss://gateway.discord.gg/?encoding=json&v=9';
+
 const listUserAgent = [
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
   'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
@@ -83,38 +85,38 @@ exports.Endpoints = {
       Emoji: (emojiId, format = 'webp') => `${root}/emojis/${emojiId}.${format}`,
       Asset: name => `${root}/assets/${name}`,
       DefaultAvatar: discriminator => `${root}/embed/avatars/${discriminator}.png`,
-      Avatar: (userId, hash, format, size, dynamic = false) => {
-        if (dynamic && hash.startsWith('a_')) format = 'gif';
-        return makeImageUrl(`${root}/avatars/${userId}/${hash}`, { format, size });
-      },
-      GuildMemberAvatar: (guildId, memberId, hash, format = 'webp', size, dynamic = false) => {
-        if (dynamic && hash.startsWith('a_')) format = 'gif';
-        return makeImageUrl(`${root}/guilds/${guildId}/users/${memberId}/avatars/${hash}`, { format, size });
-      },
-      Banner: (id, hash, format, size, dynamic = false) => {
-        if (dynamic && hash.startsWith('a_')) format = 'gif';
-        return makeImageUrl(`${root}/banners/${id}/${hash}`, { format, size });
-      },
-      Icon: (guildId, hash, format, size, dynamic = false) => {
-        if (dynamic && hash.startsWith('a_')) format = 'gif';
-        return makeImageUrl(`${root}/icons/${guildId}/${hash}`, { format, size });
-      },
-      AppIcon: (appId, hash, options) => makeImageUrl(`${root}/app-icons/${appId}/${hash}`, options),
-      AppAsset: (appId, hash, options) => makeImageUrl(`${root}/app-assets/${appId}/${hash}`, options),
-      StickerPackBanner: (bannerId, format, size) =>
-        makeImageUrl(`${root}/app-assets/710982414301790216/store/${bannerId}`, { size, format }),
-      GDMIcon: (channelId, hash, format, size) =>
-        makeImageUrl(`${root}/channel-icons/${channelId}/${hash}`, { size, format }),
-      Splash: (guildId, hash, format, size) => makeImageUrl(`${root}/splashes/${guildId}/${hash}`, { size, format }),
-      DiscoverySplash: (guildId, hash, format, size) =>
-        makeImageUrl(`${root}/discovery-splashes/${guildId}/${hash}`, { size, format }),
-      TeamIcon: (teamId, hash, options) => makeImageUrl(`${root}/team-icons/${teamId}/${hash}`, options),
-      Sticker: (stickerId, stickerFormat) =>
-        `${root}/stickers/${stickerId}.${stickerFormat === 'LOTTIE' ? 'json' : 'png'}`,
-      RoleIcon: (roleId, hash, format = 'webp', size) =>
-        makeImageUrl(`${root}/role-icons/${roleId}/${hash}`, { size, format }),
-      guildScheduledEventCover: (scheduledEventId, coverHash, format, size) =>
-        makeImageUrl(`${root}/guild-events/${scheduledEventId}/${coverHash}`, { size, format }),
+      // Avatar: (userId, hash, format, size, dynamic = false) => {
+      //   if (dynamic && hash.startsWith('a_')) format = 'gif';
+      //   return makeImageUrl(`${root}/avatars/${userId}/${hash}`, { format, size });
+      // },
+      // GuildMemberAvatar: (guildId, memberId, hash, format = 'webp', size, dynamic = false) => {
+      //   if (dynamic && hash.startsWith('a_')) format = 'gif';
+      //   return makeImageUrl(`${root}/guilds/${guildId}/users/${memberId}/avatars/${hash}`, { format, size });
+      // },
+      // Banner: (id, hash, format, size, dynamic = false) => {
+      //   if (dynamic && hash.startsWith('a_')) format = 'gif';
+      //   return makeImageUrl(`${root}/banners/${id}/${hash}`, { format, size });
+      // },
+      // Icon: (guildId, hash, format, size, dynamic = false) => {
+      //   if (dynamic && hash.startsWith('a_')) format = 'gif';
+      //   return makeImageUrl(`${root}/icons/${guildId}/${hash}`, { format, size });
+      // },
+      // AppIcon: (appId, hash, options) => makeImageUrl(`${root}/app-icons/${appId}/${hash}`, options),
+      // AppAsset: (appId, hash, options) => makeImageUrl(`${root}/app-assets/${appId}/${hash}`, options),
+      // StickerPackBanner: (bannerId, format, size) =>
+      //   makeImageUrl(`${root}/app-assets/710982414301790216/store/${bannerId}`, { size, format }),
+      // GDMIcon: (channelId, hash, format, size) =>
+      //   makeImageUrl(`${root}/channel-icons/${channelId}/${hash}`, { size, format }),
+      // Splash: (guildId, hash, format, size) => makeImageUrl(`${root}/splashes/${guildId}/${hash}`, { size, format }),
+      // DiscoverySplash: (guildId, hash, format, size) =>
+      //   makeImageUrl(`${root}/discovery-splashes/${guildId}/${hash}`, { size, format }),
+      // TeamIcon: (teamId, hash, options) => makeImageUrl(`${root}/team-icons/${teamId}/${hash}`, options),
+      // Sticker: (stickerId, stickerFormat) =>
+      //   `${root}/stickers/${stickerId}.${stickerFormat === 'LOTTIE' ? 'json' : 'png'}`,
+      // RoleIcon: (roleId, hash, format = 'webp', size) =>
+      //   makeImageUrl(`${root}/role-icons/${roleId}/${hash}`, { size, format }),
+      // guildScheduledEventCover: (scheduledEventId, coverHash, format, size) =>
+      //   makeImageUrl(`${root}/guild-events/${scheduledEventId}/${coverHash}`, { size, format }),
     };
   },
   invite: (root, code, eventId) => (eventId ? `${root}/${code}?event=${eventId}` : `${root}/${code}`),
@@ -798,12 +800,12 @@ function keyMirror(arr) {
   return tmp;
 }
 
-function createEnum(keys) {
-  const obj = {};
-  for (const [index, key] of keys.entries()) {
-    if (key === null) continue;
-    obj[key] = index;
-    obj[index] = key;
-  }
-  return obj;
-}
+// Function createEnum(keys) {
+//   const obj = {};
+//   for (const [index, key] of keys.entries()) {
+//     if (key === null) continue;
+//     obj[key] = index;
+//     obj[index] = key;
+//   }
+//   return obj;
+// }

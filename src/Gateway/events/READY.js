@@ -1,7 +1,5 @@
 'use strict';
 
-module.exports = (client, { d: data }, shard) => {
-  client.sessionId = data.session_id;
-
-  shard.checkReady();
+module.exports = (client, { d: data }) => {
+  client.emit('Debug', `Ready event data: ${data}`);
 };

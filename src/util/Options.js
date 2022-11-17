@@ -6,14 +6,13 @@ const json = require('json-bigint');
 class Options extends null {
   static createDefault() {
     return {
-      shardCount: 1,
       ws: {
         large_threshold: 50,
         compress: false,
         properties: {
           os: 'Windows',
           browser: 'Discord Client',
-          device: 'ASUS ROG Phone 5',
+          device: '',
           os_version: '10',
           referrer: '',
           referrer_current: '',
@@ -23,14 +22,16 @@ class Options extends null {
           client_build_number: 127546,
           client_build_source: null,
         },
-        capibilities: 509,
+        capibilities: 4093,
         version: 9,
         client_state: {
-          guild_hashes: {},
-          hightes_last_message_id: '0',
+          api_code_version: 0,
+          guild_versions: {},
+          highest_last_message_id: '0',
           read_state_version: 0,
           user_guild_settings_version: -1,
           user_settings_version: -1,
+          private_channels_version: '0',
         },
       },
       http: {

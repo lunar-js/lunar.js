@@ -142,10 +142,10 @@ class BitField {
     const { defaultBit } = this;
     if (typeof defaultBit === typeof bit && bit >= defaultBit) return bit;
     if (bit instanceof BitField) return bit.bitfield;
-    if (Array.isArray(bit)) return bit.map(p => this.resolve(p)).reduce((prev, p) => prev | p, defaultBit);
+    if (Array.isArray(bit)) return bit.map(p => BitField.resolve(p)).reduce((prev, p) => prev | p, defaultBit);
     if (typeof bit === 'string') {
       if (typeof this.FLAGS[bit] !== 'undefined') return this.FLAGS[bit];
-      if (!isNaN(bit)) return typeof defaultBit === 'bigint' ? BigInt(bit) : Number(bit);
+      if (!Number.isNaN(bit)) return typeof defaultBit === 'bigint' ? BigInt(bit) : Number(bit);
     }
     throw new Error(`Invalid bitfield flag or number: ${bit}`);
   }
